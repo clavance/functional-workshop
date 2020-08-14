@@ -6,13 +6,13 @@ const rectangle = (height, width) => {
       case "getWidth":
         return () => width;
       case "getHeight":
-        return; //TODO
+        return () => height; //TODO
       case "getArea":
-        return; //TODO
+        return () => height * width; //TODO
       case "setWidth":
         return (newWidth) => rectangle(height, newWidth);
       case "setHeight":
-        return; //TODO
+        return (newHeight) => rectangle(newHeight, width); //TODO
       case "toString":
         return () =>
           new Array(height + 1).join(new Array(width + 1).join("X ") + "\n");
@@ -29,8 +29,17 @@ const square = (side) => {
       method === "setWidth" ||
       method === "setHeight"
     ) {
-      return (size) => {}; // TODO
-    } else return; //TODO
+      return (newSize) => square(newSize); // TODO
+    } else if (method === "getArea") {
+      return () => side * side; //TODO
+    } else if (method === "getWidth" || method === "getHeight") {
+      return () => side;
+    } else if (method === "toString") {
+      return () =>
+        new Array(side + 1).join(new Array(side + 1).join("X ") + "\n");
+    } else {
+      return (...args) => `unknown method "${method}"`;
+    }
   };
 };
 
