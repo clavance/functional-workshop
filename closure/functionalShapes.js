@@ -1,7 +1,7 @@
 "use strict";
 
 const rectangle = (height, width) => {
-  return (method) => {
+  return method => {
     switch (method) {
       case "getWidth":
         return () => width;
@@ -10,9 +10,9 @@ const rectangle = (height, width) => {
       case "getArea":
         return () => height * width; //TODO
       case "setWidth":
-        return (newWidth) => rectangle(height, newWidth);
+        return newWidth => rectangle(height, newWidth);
       case "setHeight":
-        return (newHeight) => rectangle(newHeight, width); //TODO
+        return newHeight => rectangle(newHeight, width); //TODO
       case "toString":
         return () =>
           new Array(height + 1).join(new Array(width + 1).join("X ") + "\n");
@@ -22,14 +22,14 @@ const rectangle = (height, width) => {
   };
 };
 
-const square = (side) => {
-  return (method) => {
+const square = side => {
+  return method => {
     if (
       method === "setSize" ||
       method === "setWidth" ||
       method === "setHeight"
     ) {
-      return (newSize) => square(newSize); // TODO
+      return newSize => square(newSize); // TODO
     } else if (method === "getArea") {
       return () => side * side; //TODO
     } else if (method === "getWidth" || method === "getHeight") {
